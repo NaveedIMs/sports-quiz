@@ -1,138 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>General Knowledge Quiz</title>
+  <meta charset="UTF-8">
+  <title>Quiz App</title>
   <style>
     body {
-      background-image: url('your-background-image.jpg'); /* Replace with your image path */
-      background-size: cover;
-      font-family: Arial, sans-serif;
-      color: #fff;
       margin: 0;
       padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-image: url('https://i.imgur.com/1POk5fL.jpg'); /* ← Replace with your own hosted background */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+
     .quiz-container {
-      background: rgba(0, 0, 0, 0.6);
+      width: 90%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
       padding: 20px;
-      margin: 50px auto;
-      width: 80%;
-      max-width: 600px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px #000;
-    }
-    .question {
-      font-size: 20px;
-      margin-bottom: 15px;
-    }
-    .options button {
-      display: block;
-      background-color: #444;
-      border: none;
-      padding: 10px;
-      margin: 8px 0;
-      width: 100%;
-      color: white;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .options button.correct {
-      background-color: green;
-    }
-    .options button.incorrect {
-      background-color: red;
-    }
-    #nextBtn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      background-color: #00bcd4;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    #scoreBox {
-      font-size: 22px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
       text-align: center;
-      display: none;
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .option {
+      display: block;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 25px;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .option:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .correct {
+      background-color: #28a745 !important;
+    }
+
+    .wrong {
+      background-color: #dc3545 !important;
+    }
+
+    .next-btn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      background-color: #6c5ce7;
+      color: white;
+      cursor: pointer;
+    }
+
+    .score {
+      font-size: 20px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <div class="quiz-container">
-    <div id="quiz">
-      <div class="question" id="question">Question Text</div>
-      <div class="options" id="options"></div>
-      <button id="nextBtn">Next</button>
-    </div>
-    <div id="scoreBox"></div>
+    <h2 id="question">Loading...</h2>
+    <div id="options"></div>
+    <button class="next-btn" onclick="nextQuestion()">Next</button>
+    <div class="score" id="scoreBox"></div>
   </div>
 
   <script>
-    const quizData = [
+    const quiz = [
       {
-        question: "Which is the largest desert in the world?",
-        options: ["Sahara", "Gobi", "Thar", "Arctic"],
-        answer: "Sahara"
+        question: "Which planet in the Solar System is the smallest?",
+        options: ["Pluto", "Earth", "Mercury", "Mars"],
+        answer: 2
       },
       {
-        question: "What is the capital of Australia?",
-        options: ["Sydney", "Melbourne", "Canberra", "Perth"],
-        answer: "Canberra"
+        question: "Which is the longest river in the world?",
+        options: ["Amazon", "Nile", "Yangtze", "Mississippi"],
+        answer: 1
       },
-      // Add more questions here...
+      {
+        question: "Who invented the telephone?",
+        options: ["Alexander Bell", "Edison", "Newton", "Einstein"],
+        answer: 0
+      }
     ];
 
     let current = 0;
     let score = 0;
-
-    const questionEl = document.getElementById("question");
-    const optionsEl = document.getElementById("options");
-    const nextBtn = document.getElementById("nextBtn");
-    const scoreBox = document.getElementById("scoreBox");
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const scoreBox = document.getElementById('scoreBox');
 
     function loadQuestion() {
-      const currentQ = quizData[current];
-      questionEl.textContent = currentQ.question;
-      optionsEl.innerHTML = "";
-
-      currentQ.options.forEach((opt) => {
-        const btn = document.createElement("button");
+      const q = quiz[current];
+      questionEl.textContent = q.question;
+      optionsEl.innerHTML = '';
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option';
         btn.textContent = opt;
-        btn.onclick = () => checkAnswer(btn, currentQ.answer);
+        btn.onclick = () => checkAnswer(i, btn);
         optionsEl.appendChild(btn);
       });
     }
 
-    function checkAnswer(button, correct) {
-      const buttons = document.querySelectorAll(".options button");
-      buttons.forEach((btn) => {
-        btn.disabled = true;
-        if (btn.textContent === correct) btn.classList.add("correct");
-        else if (btn !== button) btn.classList.add("inactive");
-      });
-
-      if (button.textContent === correct) {
-        button.classList.add("correct");
+    function checkAnswer(selected, btn) {
+      const q = quiz[current];
+      const buttons = document.querySelectorAll('.option');
+      buttons.forEach(b => b.disabled = true);
+      if (selected === q.answer) {
+        btn.classList.add('correct');
         score++;
       } else {
-        button.classList.add("incorrect");
+        btn.classList.add('wrong');
+        buttons[q.answer].classList.add('correct');
       }
     }
 
-    nextBtn.onclick = () => {
+    function nextQuestion() {
       current++;
-      if (current < quizData.length) {
+      if (current < quiz.length) {
         loadQuestion();
       } else {
-        document.getElementById("quiz").style.display = "none";
-        scoreBox.style.display = "block";
-        scoreBox.innerHTML = `You scored ${score} out of ${quizData.length}`;
+        questionEl.textContent = "Quiz Completed!";
+        optionsEl.innerHTML = '';
+        document.querySelector('.next-btn').style.display = 'none';
+        scoreBox.textContent = `Your Score: ${score} / ${quiz.length}`;
       }
-    };
+    }
 
     loadQuestion();
   </script>
