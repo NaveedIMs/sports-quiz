@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sports Quiz</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1 { color: #2c3e50; }
+    .question { margin-bottom: 20px; }
+    .question p { font-weight: bold; }
+    button { padding: 10px 20px; background-color: #2c3e50; color: white; border: none; cursor: pointer; }
+    button:hover { background-color: #34495e; }
+    #result { margin-top: 20px; font-size: 18px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<h1>Sports Quiz</h1>
+
+<form id="quizForm">
+
+  <!-- Questions will go here -->
+</form>
+
+<button onclick="submitQuiz()">Submit</button>
+<div id="result"></div>
+
+<script>
+const questions = [
+  {
+    question: "Which country has won the most FIFA World Cup titles in football?",
+    options: ["Germany", "Brazil", "Argentina", "France"],
+    answer: "Brazil"
+  },
+  {
+    question: "What is the national sport of Japan?",
+    options: ["Karate", "Judo", "Sumo Wrestling", "Kendo"],
+    answer: "Sumo Wrestling"
+  },
+  {
+    question: "Who holds the record for the most Olympic gold medals?",
+    options: ["Usain Bolt", "Larisa Latynina", "Michael Phelps", "Carl Lewis"],
+    answer: "Michael Phelps"
+  },
+  {
+    question: "How many players are there in a standard basketball team on the court?",
+    options: ["6", "5", "4", "7"],
+    answer: "5"
+  },
+  {
+    question: "The term “Love” is used in which sport?",
+    options: ["Football", "Tennis", "Golf", "Cricket"],
+    answer: "Tennis"
+  },
+  {
+    question: "What is the highest governing body of cricket?",
+    options: ["BCCI", "ICC", "ECB", "MCC"],
+    answer: "ICC"
+  },
+  {
+    question: "In which year did the first modern Olympics take place?",
+    options: ["1892", "1896", "1900", "1912"],
+    answer: "1896"
+  },
+  {
+    question: "Which country hosted the 2016 Summer Olympics?",
+    options: ["China", "Brazil", "UK", "USA"],
+    answer: "Brazil"
+  },
+  {
+    question: "Who is known as the “Flying Sikh” of India?",
+    options: ["Milkha Singh", "Sachin Tendulkar", "Kapil Dev", "Dhyan Chand"],
+    answer: "Milkha Singh"
+  },
+  {
+    question: "In which sport is the Ryder Cup contested?",
+    options: ["Golf", "Baseball", "Tennis", "Cricket"],
+    answer: "Golf"
+  },
+  {
+    question: "Which sport uses the term “hat-trick”?",
+    options: ["Basketball", "Cricket", "Tennis", "Swimming"],
+    answer: "Cricket"
+  },
+  {
+    question: "Where did the game of chess originate?",
+    options: ["India", "China", "Egypt", "Greece"],
+    answer: "India"
+  },
+  {
+    question: "Who was the first woman to win an Olympic gold medal?",
+    options: ["Wilma Rudolph", "Charlotte Cooper", "Nadia Comăneci", "Mary Kom"],
+    answer: "Charlotte Cooper"
+  },
+  {
+    question: "In which sport would you perform a slam dunk?",
+    options: ["Baseball", "Football", "Basketball", "Volleyball"],
+    answer: "Basketball"
+  },
+  {
+    question: "The Ashes is a famous series played between which two countries?",
+    options: ["Australia and England", "India and Pakistan", "South Africa and England", "New Zealand and Australia"],
+    answer: "Australia and England"
+  },
+  {
+    question: "Who is known as the 'King of Clay' in tennis?",
+    options: ["Novak Djokovic", "Rafael Nadal", "Roger Federer", "Andy Murray"],
+    answer: "Rafael Nadal"
+  },
+  {
+    question: "What is the length of an Olympic swimming pool?",
+    options: ["50 meters", "100 meters", "25 meters", "75 meters"],
+    answer: "50 meters"
+  },
+  {
+    question: "Which country has won the most gold medals in the Winter Olympics?",
+    options: ["Canada", "USA", "Norway", "Germany"],
+    answer: "Norway"
+  },
+  {
+    question: "What is the duration of a standard football match (excluding extra time)?",
+    options: ["90 minutes", "60 minutes", "80 minutes", "120 minutes"],
+    answer: "90 minutes"
+  },
+  {
+    question: "Which athlete is nicknamed “Lightning Bolt”?",
+    options: ["Michael Johnson", "Usain Bolt", "Mo Farah", "Tyson Gay"],
+    answer: "Usain Bolt"
+  }
+];
+
+// Generate form
+const form = document.getElementById('quizForm');
+questions.forEach((q, index) => {
+  const div = document.createElement('div');
+  div.className = 'question';
+  div.innerHTML = `<p>${index + 1}. ${q.question}</p>` +
+    q.options.map(opt =>
+      `<label><input type="radio" name="q${index}" value="${opt}"> ${opt}</label><br>`
+    ).join('');
+  form.appendChild(div);
+});
+
+function submitQuiz() {
+  let score = 0;
+  questions.forEach((q, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    if (selected && selected.value === q.answer) {
+      score++;
+    }
+  });
+  document.getElementById('result').innerText = `Your Score: ${score}/${questions.length}`;
+}
+</script>
+
+</body>
+</html>
