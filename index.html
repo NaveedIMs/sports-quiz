@@ -1,132 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MCQs Quiz</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      padding: 20px;
-    }
-    .quiz-container {
-      background: white;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #ccc;
-    }
-    .question {
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-    .options button {
-      display: block;
-      margin: 10px 0;
-      padding: 10px;
-      width: 100%;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      background-color: #f9f9f9;
-      cursor: pointer;
-      text-align: left;
-    }
-    .options button.correct {
-      background-color: #c8e6c9;
-    }
-    .options button.wrong {
-      background-color: #ffcdd2;
-    }
-    .next-btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-    }
-    .result {
-      font-size: 20px;
-      text-align: center;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>General Knowledge Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+        h1 {
+            color: #0066cc;
+            text-align: center;
+        }
+        .question {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin: 5px 0;
+        }
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
+    <h1>General Knowledge MCQs</h1>
 
-<div class="quiz-container">
-  <div id="quiz">
-    <div class="question" id="question">Loading...</div>
-    <div class="options" id="options"></div>
-    <button class="next-btn" onclick="nextQuestion()">Next</button>
-    <div class="result" id="result"></div>
-  </div>
-</div>
+    <div class="question">
+        <p>1. Who is the founder of Pakistan?</p>
+        <label class="correct">✓ Muhammad Ali Jinnah</label>
+        <label>Allama Iqbal</label>
+        <label>Sir Syed Ahmed Khan</label>
+        <label>Liaquat Ali Khan</label>
+    </div>
 
-<script>
-const quizData = [
-  {
-    question: "1. What is the capital of France?",
-    options: ["Berlin", "Madrid", "Paris", "London"],
-    answer: "Paris"
-  },
-  {
-    question: "2. Who wrote 'Hamlet'?",
-    options: ["Charles Dickens", "William Shakespeare", "Leo Tolstoy", "Mark Twain"],
-    answer: "William Shakespeare"
-  },
-  {
-    question: "3. What is the chemical symbol of water?",
-    options: ["H2O", "O2", "NaCl", "CO2"],
-    answer: "H2O"
-  }
-];
+    <div class="question">
+        <p>2. What is the capital of Australia?</p>
+        <label>Sydney</label>
+        <label>Melbourne</label>
+        <label class="correct">✓ Canberra</label>
+        <label>Brisbane</label>
+    </div>
 
-let currentQuestion = 0;
-let score = 0;
+    <div class="question">
+        <p>3. Which planet is known as the Red Planet?</p>
+        <label>Earth</label>
+        <label>Jupiter</label>
+        <label class="correct">✓ Mars</label>
+        <label>Venus</label>
+    </div>
 
-function loadQuestion() {
-  const q = quizData[currentQuestion];
-  document.getElementById("question").innerText = q.question;
-  const optionsDiv = document.getElementById("options");
-  optionsDiv.innerHTML = "";
+    <div class="question">
+        <p>4. Who wrote "Hamlet"?</p>
+        <label class="correct">✓ William Shakespeare</label>
+        <label>Charles Dickens</label>
+        <label>Leo Tolstoy</label>
+        <label>Jane Austen</label>
+    </div>
 
-  q.options.forEach(option => {
-    const btn = document.createElement("button");
-    btn.innerText = option;
-    btn.onclick = () => checkAnswer(btn, q.answer);
-    optionsDiv.appendChild(btn);
-  });
+    <div class="question">
+        <p>5. Which is the smallest continent?</p>
+        <label>Europe</label>
+        <label>Antarctica</label>
+        <label class="correct">✓ Australia</label>
+        <label>South America</label>
+    </div>
 
-  document.getElementById("result").innerText = "";
-}
+    <div class="question">
+        <p>6. What is the chemical symbol of water?</p>
+        <label>CO<sub>2</sub></label>
+        <label>O<sub>2</sub></label>
+        <label class="correct">✓ H<sub>2</sub>O</label>
+        <label>NaCl</label>
+    </div>
 
-function checkAnswer(button, correctAnswer) {
-  const buttons = document.querySelectorAll("#options button");
-  buttons.forEach(btn => {
-    btn.disabled = true;
-    if (btn.innerText === correctAnswer) {
-      btn.classList.add("correct");
-    } else if (btn === button) {
-      btn.classList.add("wrong");
-    }
-  });
+    <div class="question">
+        <p>7. What currency is used in Japan?</p>
+        <label>Won</label>
+        <label>Dollar</label>
+        <label class="correct">✓ Yen</label>
+        <label>Ruble</label>
+    </div>
 
-  if (button.innerText === correctAnswer) {
-    score++;
-  }
-}
+    <div class="question">
+        <p>8. Who invented the telephone?</p>
+        <label>Thomas Edison</label>
+        <label class="correct">✓ Alexander Graham Bell</label>
+        <label>Nikola Tesla</label>
+        <label>Isaac Newton</label>
+    </div>
 
-function nextQuestion() {
-  currentQuestion++;
-  if (currentQuestion < quizData.length) {
-    loadQuestion();
-  } else {
-    document.getElementById("quiz").innerHTML = `<div class="result">Your Score: ${score}/${quizData.length}</div>`;
-  }
-}
+    <div class="question">
+        <p>9. How many continents are there in the world?</p>
+        <label>5</label>
+        <label>6</label>
+        <label class="correct">✓ 7</label>
+        <label>8</label>
+    </div>
 
-window.onload = loadQuestion;
-</script>
+    <div class="question">
+        <p>10. What is the national flower of Pakistan?</p>
+        <label>Lily</label>
+        <label>Rose</label>
+        <label class="correct">✓ Jasmine</label>
+        <label>Sunflower</label>
+    </div>
+
+    <div class="question">
+        <p>11. Which country has the largest population?</p>
+        <label>USA</label>
+        <label class="correct">✓ China</label>
+        <label>India</label>
+        <label>Russia</label>
+    </div>
+
+    <div class="question">
+        <p>12. What gas do plants use for photosynthesis?</p>
+        <label>Oxygen</label>
+        <label class="correct">✓ Carbon Dioxide</label>
+        <label>Hydrogen</label>
+        <label>Nitrogen</label>
+    </div>
+
+    <div class="question">
+        <p>13. How many players are there in a football team?</p>
+        <label>10</label>
+        <label class="correct">✓ 11</label>
+        <label>9</label>
+        <label>12</label>
+    </div>
+
+    <div class="question">
+        <p>14. Who painted the Mona Lisa?</p>
+        <label>Pablo Picasso</label>
+        <label>Vincent van Gogh</label>
+        <label class="correct">✓ Leonardo da Vinci</label>
+        <label>Michelangelo</label>
+    </div>
+
+    <div class="question">
+        <p>15. Which is the longest river in the world?</p>
+        <label>Amazon</label>
+        <label class="correct">✓ Nile</label>
+        <label>Yangtze</label>
+        <label>Mississippi</label>
+    </div>
+
+    <div class="question">
+        <p>16. When did World War II end?</p>
+        <label>1939</label>
+        <label>1944</label>
+        <label class="correct">✓ 1945</label>
+        <label>1950</label>
+    </div>
+
+    <div class="question">
+        <p>17. What is the currency of the UK?</p>
+        <label>Euro</label>
+        <label>Dollar</label>
+        <label class="correct">✓ Pound Sterling</label>
+        <label>Franc</label>
+    </div>
+
+    <div class="question">
+        <p>18. Which organ purifies blood in the human body?</p>
+        <label>Heart</label>
+        <label>Brain</label>
+        <label>Lungs</label>
+        <label class="correct">✓ Kidney</label>
+    </div>
+
+    <div class="question">
+        <p>19. Who was the first man on the moon?</p>
+        <label>Yuri Gagarin</label>
+        <label class="correct">✓ Neil Armstrong</label>
+        <label>Buzz Aldrin</label>
+        <label>Michael Collins</label>
+    </div>
+
+    <div class="question">
+        <p>20. What is the hardest natural substance?</p>
+        <label>Iron</label>
+        <label>Gold</label>
+        <label>Quartz</label>
+        <label class="correct">✓ Diamond</label>
+    </div>
 
 </body>
 </html>
-
